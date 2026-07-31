@@ -26,20 +26,16 @@ public class ChequeServiceImpl implements ChequeService {
 
 	@Override
 	public List<Cheque> sortByChequeNumber() {
-		
-		return null;
+		List<Cheque> cheques = getAllCheques();
+		Collections.sort(cheques);
+		return cheques;
 	}
 
 	@Override
 	public List<Cheque> sortByAmountAscending() {
-		
-		return null;
-	}
-
-	@Override
-	public List<Cheque> sortByAmountDescending() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cheque> cheques = getAllCheques();
+		Collections.sort(cheques, (c1, c2) -> c1.getChequeAmount().compareTo(c2.getChequeAmount()));
+		return cheques;
 	}
 
 	@Override
@@ -77,6 +73,12 @@ public class ChequeServiceImpl implements ChequeService {
 	@Override
 	public List<Cheque> getHighValueCheques() {
 		
+		return null;
+	}
+
+	@Override
+	public List<Cheque> sortByAmountDescending() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
