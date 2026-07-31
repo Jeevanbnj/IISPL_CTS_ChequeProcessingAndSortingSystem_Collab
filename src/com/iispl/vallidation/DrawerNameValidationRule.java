@@ -7,7 +7,6 @@ public class DrawerNameValidationRule implements ChequeValidationRule{
 
 	@Override
 	public ChequeStatus validate(Cheque cheque) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
