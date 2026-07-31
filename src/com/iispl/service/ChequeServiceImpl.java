@@ -1,5 +1,6 @@
 package com.iispl.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,8 +47,16 @@ public class ChequeServiceImpl implements ChequeService {
 
 	@Override
 	public List<Cheque> sortByBankAndAmount() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cheque> cheques = getAllCheques();
+		cheques.sort((c1, c2) -> {
+			if (!c1.getPresentingBank().equals(c2.getPresentingBank())) {
+				return c1.getPresentingBank().compareTo(c2.getPresentingBank());
+			}
+			else {
+				return c1.getChequeAmount().compareTo(c2.getChequeAmount());
+			}
+		});
+		return cheques;
 	}
 
 	@Override
@@ -73,13 +82,7 @@ public class ChequeServiceImpl implements ChequeService {
 	@Override
 	public List<Cheque> getHighValueCheques() {
 		
-		return null;
-	}
-
-	@Override
-	public List<Cheque> sortByAmountDescending() {
-		// TODO Auto-generated method stub
-		return null;
+		return chequeDao.getHighValueCheques();
 	}
 
 	
