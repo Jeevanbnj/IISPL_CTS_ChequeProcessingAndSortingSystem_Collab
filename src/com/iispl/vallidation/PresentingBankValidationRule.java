@@ -7,8 +7,20 @@ public class PresentingBankValidationRule implements ChequeValidationRule {
 
 	@Override
 	public ChequeStatus validate(Cheque cheque) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		if(cheque.getPresentingBank()==null) {
+			
+			System.out.println("Presenting bank Cannot be Null");
+			return ChequeStatus.REJECTED;
+			
+		}
+		
+		if (cheque.getPresentingBank().trim().isEmpty()) {
+			System.out.println("Presenting bank should not be Blank");
+		    return ChequeStatus.REJECTED;
+		}
+		return ChequeStatus.PENDING;
 	}
 
 }
+	
