@@ -88,7 +88,7 @@ public class Cheque implements Comparable<Cheque>{
 	@Override
 	public int compareTo(Cheque o) {
 		// TODO Auto-generated method stub
-		return this.chequeNumber.compareTo(chequeNumber);
+		return this.chequeNumber.compareTo(o.chequeNumber);
 	}
 	
 	

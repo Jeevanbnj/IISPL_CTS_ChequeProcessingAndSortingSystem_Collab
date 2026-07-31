@@ -16,7 +16,6 @@ public class ChequeServiceImpl implements ChequeService {
 	public void addCheque(Cheque cheque) {
 		//Create object of ChequeVaalidator
 		
-		
 	}
 
 	@Override
@@ -35,8 +34,9 @@ public class ChequeServiceImpl implements ChequeService {
 
 	@Override
 	public List<Cheque> sortByAmountAscending() {
-		
-		return null;
+		List<Cheque> chequeList=getAllCheques();
+		chequeList.sort((c1,c2) -> c1.getChequeAmount().compareTo(c2.getChequeAmount()));
+		return chequeList;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class ChequeServiceImpl implements ChequeService {
 		
 		List<Cheque> cheques =  getAllCheques();
 		
-		Collections.sort(cheques ,(c1,c2) -> c1.getPriority().compareTo(c2.getPriority()));
+		Collections.sort(cheques ,(c1,c2) -> c1.getStatus().compareTo(c2.getStatus()));
 		
 		return cheques;
 	}
