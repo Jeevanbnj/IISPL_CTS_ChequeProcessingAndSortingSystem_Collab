@@ -1,7 +1,17 @@
 package com.iispl.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import com.iispl.connectionpool.ConnectionPool;
+import com.iispl.enums.ChequePriority;
+import com.iispl.enums.ChequeStatus;
 import com.iispl.model.Cheque;
 
 public class ChequeDaoImpl implements ChequeDao {
@@ -15,7 +25,26 @@ public class ChequeDaoImpl implements ChequeDao {
 	@Override
 	public List<Cheque> getAllCheques() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Cheque> chequeList=new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement prepstmt=null;
+		String sql= " SELECT * from cheque ";
+		try {
+			DataSource datasource=ConnectionPool.getDataSource();
+			connection= datasource.getConnection();
+			prepstmt=connection.prepareStatement(sql);
+			ResultSet resultSet=prepstmt.executeQuery();
+			while(resultSet.next()) {
+				Cheque cheque = new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),
+						resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),
+						ChequeStatus.valueOf(resultSet.getString(9)));
+			}
+			connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return chequeList;
 	}
 
 	@Override
