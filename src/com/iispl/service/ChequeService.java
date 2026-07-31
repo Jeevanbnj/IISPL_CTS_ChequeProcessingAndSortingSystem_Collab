@@ -20,7 +20,9 @@ public interface ChequeService {
 
 	List<Cheque> sortByBankAndAmount();
 
-	List<Cheque> sortByPriorityAndStatus();
+	List<Cheque> sortByPriority();
+	
+	List<Cheque> sortByStatus();
 
 	List<Cheque> getHighValueCheques();
 	

@@ -53,7 +53,13 @@ public class ChequeServiceImpl implements ChequeService {
 	}
 
 	@Override
-	public List<Cheque> sortByPriorityAndStatus() {
+	public List<Cheque> sortByPriority() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<Cheque> sortByStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -63,5 +69,7 @@ public class ChequeServiceImpl implements ChequeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
