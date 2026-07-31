@@ -1,5 +1,6 @@
 package com.iispl.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.iispl.dao.ChequeDao;
@@ -19,7 +20,8 @@ public class ChequeServiceImpl implements ChequeService {
 	@Override
 	public List<Cheque> getAllCheques() {
 		
-		return null;
+		return chequeDao.getAllCheques();
+		
 	}
 
 	@Override
@@ -54,19 +56,27 @@ public class ChequeServiceImpl implements ChequeService {
 
 	@Override
 	public List<Cheque> sortByPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Cheque> cheques =  getAllCheques();
+		
+		Collections.sort(cheques ,(c1,c2) -> c1.getPriority().compareTo(c2.getPriority()));
+		
+		return cheques;
 	}
 	
 	@Override
 	public List<Cheque> sortByStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Cheque> cheques =  getAllCheques();
+		
+		Collections.sort(cheques ,(c1,c2) -> c1.getPriority().compareTo(c2.getPriority()));
+		
+		return cheques;
 	}
 
 	@Override
 	public List<Cheque> getHighValueCheques() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
