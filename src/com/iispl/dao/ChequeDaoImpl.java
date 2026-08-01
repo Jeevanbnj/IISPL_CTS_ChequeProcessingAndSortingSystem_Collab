@@ -49,8 +49,28 @@ public class ChequeDaoImpl implements ChequeDao {
 
 	@Override
 	public List<Cheque> getHighValueCheques() {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		String sql = "SELECT * FROM cheque WHERE chequeAmount >= ?";
+		List<Cheque> cheques = new ArrayList<Cheque>();
+
+		try {
+
+			DataSource ds = ConnectionPool.getDataSource();
+			connection = ds.getConnection();
+			PreparedStatement prepstmt = connection.prepareStatement(sql);
+			prepstmt.setBigDecimal(1,new BigDecimal("200000"));
+			ResultSet resultSet = prepstmt.executeQuery();
+
+			while(resultSet.next()) {
+				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9))));
+			}		
+			
+			connection.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cheques;
 	}
 
 }
