@@ -4,6 +4,12 @@ package com.iispl.service;
 import java.util.ArrayList;
 import java.util.List;
 import com.iispl.enums.ChequeStatus;
+import com.iispl.exception.InvalidAccountNumberException;
+import com.iispl.exception.InvalidAmountException;
+import com.iispl.exception.InvalidChequeNumberException;
+import com.iispl.exception.InvalidDateException;
+import com.iispl.exception.InvalidDrawerNameException;
+import com.iispl.exception.InvalidPresentingBankException;
 import com.iispl.model.Cheque;
 import com.iispl.vallidation.AccountNumberValidationRule;
 import com.iispl.vallidation.ChequeAmountValidationRule;
@@ -38,16 +44,27 @@ public class ChequeValidator {
 	}
 	
 	public ChequeStatus validate(Cheque cheque) {
-		
+		System.out.println("Validating cheque: " + cheque.getChequeNumber());
 		for (ChequeValidationRule rule : rules) {
-			ChequeStatus status = rule.validate(cheque);
 			
-			if (status.equals(ChequeStatus.REJECTED)) {
-				return status;
+			try {
+				ChequeStatus status = rule.validate(cheque);
+				if (status.equals(ChequeStatus.REJECTED)) {
+					return status;
+				}
+			} catch (InvalidAccountNumberException | InvalidAmountException | InvalidChequeNumberException |
+					InvalidDateException | InvalidDrawerNameException | InvalidPresentingBankException e) {
+				
+				System.out.println(e.getMessage());
+				System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+				return ChequeStatus.REJECTED;
 			}
+			
 		}
 		
 		System.out.println("All validations are passed");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
 		return ChequeStatus.ACCEPTED;
 	}
 

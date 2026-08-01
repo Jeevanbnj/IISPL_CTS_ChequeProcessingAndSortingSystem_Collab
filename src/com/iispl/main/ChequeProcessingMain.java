@@ -1,15 +1,22 @@
 package com.iispl.main;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.iispl.model.Cheque;
 import com.iispl.service.ChequeService;
 import com.iispl.service.ChequeServiceImpl;
 
 public class ChequeProcessingMain {
+	
 	private static Scanner scanner = new Scanner(System.in);
     private static ChequeService chequeService = new ChequeServiceImpl();
 
     public static void main(String[] args) {
+    	
+    	for (Cheque cheque : chequeService.getPendingCheques()) {
+    		chequeService.validateCheque(cheque);
+    	}
 
         while (true) {
 
@@ -28,42 +35,52 @@ public class ChequeProcessingMain {
 
             int choice = Integer.parseInt(scanner.nextLine());
 
+            List<Cheque> cheques;
             switch (choice) {
 
             case 1:
-                chequeService.getAllCheques();
+                cheques = chequeService.getAllCheques();
+                displayCheques(cheques);
                 break;
 
             case 2:
-                chequeService.sortByChequeNumber();
+            	cheques = chequeService.sortByChequeNumber();
+            	displayCheques(cheques);
                 break;
 
             case 3:
-                chequeService.sortByAmountAscending();
+                cheques = chequeService.sortByAmountAscending();
+                displayCheques(cheques);
                 break;
 
             case 4:
-                chequeService.sortByAmountAscending();
+                cheques = chequeService.sortByAmountDescending();
+                displayCheques(cheques);
                 break;
 
             case 5:
-                chequeService.sortByChequeDate();
+                cheques = chequeService.sortByChequeDate();
+                displayCheques(cheques);
                 break;
 
             case 6:
-                chequeService.sortByBankAndAmount();
+                cheques = chequeService.sortByBankAndAmount();
+                displayCheques(cheques);
                 break;
 
             case 7:
-                chequeService.sortByPriority();
+                cheques = chequeService.sortByPriority();
+                displayCheques(cheques);
                 break;
                 
             case 8:
-            	chequeService.sortByStatus();
+            	cheques = chequeService.sortByStatus();
+            	displayCheques(cheques);
             	break;
 
             case 9:
-                chequeService.getHighValueCheques();
+                List<Cheque> highValueCheques = chequeService.getHighValueCheques();
+                displayCheques(highValueCheques);
                 break;
 
             case 10:
@@ -72,8 +89,32 @@ public class ChequeProcessingMain {
                 System.exit(0);
 
             default:
-                System.out.println("Invalid choice! Please enter a number between 1 and 9.");
+                System.out.println("Invalid choice! Please enter a number between 1 and 10.");
             }
+        }
+    }
+    
+    public static void displayCheques(List<Cheque> cheques) {
+
+        System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s%n",
+                "Cheque No", "Account No", "Drawer Name", "Presenting Bank",
+                "Amount", "Cheque Date", "Presented Date", "Priority", "Status");
+
+        System.out.println(
+                "-------------------------------------------------------------------------------------------------------------------------------");
+
+        for (Cheque cheque : cheques) {
+
+            System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s%n",
+                    cheque.getChequeNumber(),
+                    cheque.getAccountNumber(),
+                    cheque.getDrawerName(),
+                    cheque.getPresentingBank(),
+                    cheque.getChequeAmount(),
+                    cheque.getChequeDate(),
+                    cheque.getPresentedDate(),
+                    cheque.getPriority(),
+                    cheque.getStatus());
         }
     }
 

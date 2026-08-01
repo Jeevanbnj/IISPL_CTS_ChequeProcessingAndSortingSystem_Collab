@@ -6,11 +6,13 @@ import java.util.List;
 
 import com.iispl.dao.ChequeDao;
 import com.iispl.dao.ChequeDaoImpl;
+import com.iispl.enums.ChequeStatus;
 import com.iispl.model.Cheque;
 
 public class ChequeServiceImpl implements ChequeService {
 	
 	ChequeDao chequeDao = new ChequeDaoImpl();
+	ChequeValidator validator = new ChequeValidator();
 
 	@Override
 	public void addCheque(Cheque cheque) {
@@ -94,6 +96,24 @@ public class ChequeServiceImpl implements ChequeService {
 		
 		return chequeDao.getHighValueCheques();
 	}
+
+	@Override
+	public List<Cheque> getPendingCheques() {
+		return chequeDao.getPendingCheques();
+	}
+
+	@Override
+	public void updateChequeStatus(String chequeNumber, ChequeStatus status) {
+		chequeDao.updateChequeStatus(chequeNumber, status);
+	}
+
+	@Override
+	public void validateCheque(Cheque cheque) {
+		ChequeStatus status = validator.validate(cheque);
+		updateChequeStatus(cheque.getChequeNumber(), status);
+	}
+	
+	
 
 	
 

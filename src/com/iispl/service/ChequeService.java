@@ -2,6 +2,7 @@ package com.iispl.service;
 
 import java.util.List;
 
+import com.iispl.enums.ChequeStatus;
 import com.iispl.model.Cheque;
 
 public interface ChequeService {
@@ -26,5 +27,10 @@ public interface ChequeService {
 
 	List<Cheque> getHighValueCheques();
 	
+	List<Cheque> getPendingCheques();
+	
+	void updateChequeStatus(String chequeNumber, ChequeStatus status);
+	
+	void validateCheque(Cheque cheque);
 
 }

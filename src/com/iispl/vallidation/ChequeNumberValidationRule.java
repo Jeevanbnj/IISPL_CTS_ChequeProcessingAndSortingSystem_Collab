@@ -1,20 +1,16 @@
 package com.iispl.vallidation;
 
 import com.iispl.enums.ChequeStatus;
+import com.iispl.exception.InvalidChequeNumberException;
 import com.iispl.model.Cheque;
 
 public class ChequeNumberValidationRule implements ChequeValidationRule {
 
 	@Override
-	public ChequeStatus validate(Cheque cheque) {
+	public ChequeStatus validate(Cheque cheque) throws InvalidChequeNumberException {
 		// TODO Auto-generated method stub
-		if(cheque.getDrawerName()==null) {
-			System.out.println("DrawerName Should not be Null ");
-			return ChequeStatus.REJECTED;
-		}
-		if (cheque.getDrawerName().trim().isEmpty()) {
-			System.out.println(" Drawer Name should not be Blank");
-		    return ChequeStatus.REJECTED;
+		if (cheque.getChequeNumber() == null || cheque.getChequeNumber().isBlank()) {
+			throw new InvalidChequeNumberException();
 		}
 		return ChequeStatus.PENDING;
 	}

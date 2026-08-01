@@ -39,6 +39,7 @@ public class ChequeDaoImpl implements ChequeDao {
 				Cheque cheque = new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),
 						resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),
 						ChequeStatus.valueOf(resultSet.getString(9)));
+				chequeList.add(cheque);			
 			}
 			connection.close();
 		}catch(SQLException e) {
@@ -72,6 +73,53 @@ public class ChequeDaoImpl implements ChequeDao {
 			e.printStackTrace();
 		}
 		return cheques;
+	}
+
+	@Override
+	public List<Cheque> getPendingCheques() {
+		Connection connection = null;
+		String sql = "SELECT * FROM cheque WHERE status = ?::chequestatus";
+		List<Cheque> cheques = new ArrayList<Cheque>();
+
+		try {
+
+			DataSource ds = ConnectionPool.getDataSource();
+			connection = ds.getConnection();
+			PreparedStatement prepstmt = connection.prepareStatement(sql);
+			prepstmt.setString(1, ChequeStatus.PENDING.name());
+			ResultSet resultSet = prepstmt.executeQuery();
+
+			while(resultSet.next()) {
+				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9))));
+			}		
+			
+			connection.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return cheques;
+	}
+
+	@Override
+	public void updateChequeStatus(String chequeNumber, ChequeStatus status) {
+		Connection connection = null;
+		String sql = "update cheque set status = ?::chequestatus where chequeNumber = ?";
+
+		try {
+
+			DataSource ds = ConnectionPool.getDataSource();
+			connection = ds.getConnection();
+			PreparedStatement prepstmt = connection.prepareStatement(sql);
+			prepstmt.setString(1, status.name());
+			prepstmt.setString(2, chequeNumber);
+			prepstmt.executeUpdate();	
+			
+			connection.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

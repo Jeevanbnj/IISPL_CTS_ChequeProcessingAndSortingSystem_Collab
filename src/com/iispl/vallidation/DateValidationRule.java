@@ -4,23 +4,19 @@ package com.iispl.vallidation;
 import java.time.LocalDate;
 
 import com.iispl.enums.ChequeStatus;
+import com.iispl.exception.InvalidDateException;
 import com.iispl.model.Cheque;
 
 public class DateValidationRule implements ChequeValidationRule {
 
 	@Override
-	public ChequeStatus validate(Cheque cheque) {
+	public ChequeStatus validate(Cheque cheque) throws InvalidDateException {
 		
 		LocalDate chequeDate = cheque.getChequeDate();
 		LocalDate presentedDate = cheque.getPresentedDate();
 		
-		if (chequeDate == null) {
-			System.out.println("Cheque date can not be null");
-			return ChequeStatus.REJECTED;
-		}
-		if (presentedDate == null) {
-			System.out.println("Presented date can not be null");
-			return ChequeStatus.REJECTED;
+		if (chequeDate == null || presentedDate == null) {
+			throw new InvalidDateException();
 		}
 		
 		if (chequeDate.isAfter(LocalDate.now())) {
@@ -33,6 +29,7 @@ public class DateValidationRule implements ChequeValidationRule {
 		}
 		if (chequeDate.isAfter(presentedDate)) {
 			System.out.println("Presented date cannot be before cheque date");
+			return ChequeStatus.REJECTED;
 			
 		}
 

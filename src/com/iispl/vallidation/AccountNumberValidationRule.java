@@ -1,16 +1,18 @@
 package com.iispl.vallidation;
 
+import java.lang.reflect.InaccessibleObjectException;
+
 import com.iispl.enums.ChequeStatus;
+import com.iispl.exception.InvalidAccountNumberException;
 import com.iispl.model.Cheque;
 
 public class AccountNumberValidationRule implements ChequeValidationRule {
 
 	@Override
-	public ChequeStatus validate(Cheque cheque) {
+	public ChequeStatus validate(Cheque cheque) throws InvalidAccountNumberException {
 		// TODO Auto-generated method stub
-		if(cheque.getAccountNumber().isBlank()) {
-			System.out.println("Account number should not be blank");
-			return ChequeStatus.REJECTED;
+		if(cheque.getAccountNumber() == null || cheque.getAccountNumber().isBlank()) {
+			throw new InaccessibleObjectException();
 		}
 		return ChequeStatus.PENDING;
 	}

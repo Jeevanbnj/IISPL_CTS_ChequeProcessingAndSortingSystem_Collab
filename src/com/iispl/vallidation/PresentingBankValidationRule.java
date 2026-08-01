@@ -1,23 +1,18 @@
 package com.iispl.vallidation;
 
 import com.iispl.enums.ChequeStatus;
+import com.iispl.exception.InvalidPresentingBankException;
 import com.iispl.model.Cheque;
 
 public class PresentingBankValidationRule implements ChequeValidationRule {
 
 	@Override
-	public ChequeStatus validate(Cheque cheque) {
+	public ChequeStatus validate(Cheque cheque) throws InvalidPresentingBankException{
 	
-		if(cheque.getPresentingBank()==null) {
+		if(cheque.getPresentingBank()==null || cheque.getPresentingBank().trim().isEmpty()) {
 			
-			System.out.println("Presenting bank Cannot be Null");
-			return ChequeStatus.REJECTED;
+			throw new InvalidPresentingBankException();
 			
-		}
-		
-		if (cheque.getPresentingBank().trim().isEmpty()) {
-			System.out.println("Presenting bank should not be Blank");
-		    return ChequeStatus.REJECTED;
 		}
 		return ChequeStatus.PENDING;
 	}
