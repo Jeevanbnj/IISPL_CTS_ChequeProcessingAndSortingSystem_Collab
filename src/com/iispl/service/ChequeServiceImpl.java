@@ -93,8 +93,9 @@ public class ChequeServiceImpl implements ChequeService {
 
 	@Override
 	public List<Cheque> getHighValueCheques() {
-		
-		return chequeDao.getHighValueCheques();
+		List<Cheque> highValueCheques = chequeDao.getHighValueCheques();
+		Collections.sort(highValueCheques,(c1,c2) -> c2.getChequeAmount().compareTo(c1.getChequeAmount()));
+		return highValueCheques;
 	}
 
 	@Override
