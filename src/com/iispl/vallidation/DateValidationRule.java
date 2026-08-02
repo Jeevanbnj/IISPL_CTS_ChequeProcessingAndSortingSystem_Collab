@@ -16,21 +16,17 @@ public class DateValidationRule implements ChequeValidationRule {
 		LocalDate presentedDate = cheque.getPresentedDate();
 		
 		if (chequeDate == null || presentedDate == null) {
-			throw new InvalidDateException();
+			throw new InvalidDateException("Date can not be null");
 		}
 		
 		if (chequeDate.isAfter(LocalDate.now())) {
-			System.out.println("Cheque Date can not be in the future");
-			return ChequeStatus.REJECTED;
+			throw new InvalidDateException("Cheque date can not be in the future");
 		}
 		if (presentedDate.isAfter(LocalDate.now())) {
-			System.out.println("Presented Date can not be in the future");
-			return ChequeStatus.REJECTED;
+			throw new InvalidDateException("Presented date can not be in the future");
 		}
 		if (chequeDate.isAfter(presentedDate)) {
-			System.out.println("Presented date cannot be before cheque date");
-			return ChequeStatus.REJECTED;
-			
+			throw new InvalidDateException("Presented date cannot be before cheque date");
 		}
 
 		return ChequeStatus.PENDING;
