@@ -101,7 +101,7 @@ public class ChequeProcessingMain {
     
     public static void displayCheques(List<Cheque> cheques) {
 
-        System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s%n",
+        System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s %-15s%n",
                 "Cheque No", "Account No", "Drawer Name", "Presenting Bank",
                 "Amount", "Cheque Date", "Presented Date", "Priority", "Status","Clearing Zone");
 
@@ -110,7 +110,7 @@ public class ChequeProcessingMain {
 
         for (Cheque cheque : cheques) {
 
-            System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s%n",
+            System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s %-15s%n",
                     cheque.getChequeNumber(),
                     cheque.getAccountNumber(),
                     cheque.getDrawerName(),
