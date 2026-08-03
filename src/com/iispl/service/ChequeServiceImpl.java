@@ -113,9 +113,19 @@ public class ChequeServiceImpl implements ChequeService {
 		ChequeStatus status = validator.validate(cheque);
 		updateChequeStatus(cheque.getChequeNumber(), status);
 	}
-	
-	
 
+	@Override
+	public List<Cheque> sortByClearingZoneAndAmount() {
+		List<Cheque> cheques =  getAllCheques();
+
+		Collections.sort(cheques, (c1, c2) -> {
+			if (!c1.getClearingZone().equals(c2.getClearingZone())) {
+				return c1.getClearingZone().compareTo(c2.getClearingZone());
+			}
+			return c2.getChequeAmount().compareTo(c1.getChequeAmount());
+		});
+		
+	}
 	
 
 }
