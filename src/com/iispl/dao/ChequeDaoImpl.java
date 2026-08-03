@@ -38,7 +38,7 @@ public class ChequeDaoImpl implements ChequeDao {
 			while(resultSet.next()) {
 				Cheque cheque = new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),
 						resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),
-						ChequeStatus.valueOf(resultSet.getString(9)));
+						ChequeStatus.valueOf(resultSet.getString(9)),resultSet.getString(10));
 				chequeList.add(cheque);			
 			}
 			connection.close();
@@ -64,7 +64,7 @@ public class ChequeDaoImpl implements ChequeDao {
 			ResultSet resultSet = prepstmt.executeQuery();
 
 			while(resultSet.next()) {
-				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9))));
+				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9)),resultSet.getString(10)));
 			}		
 			
 			connection.close();
@@ -90,7 +90,7 @@ public class ChequeDaoImpl implements ChequeDao {
 			ResultSet resultSet = prepstmt.executeQuery();
 
 			while(resultSet.next()) {
-				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9))));
+				cheques.add(new Cheque(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getBigDecimal(5),resultSet.getDate(6).toLocalDate(),resultSet.getDate(7).toLocalDate(),ChequePriority.valueOf(resultSet.getString(8)),ChequeStatus.valueOf(resultSet.getString(9)),resultSet.getString(10)));
 			}		
 			
 			connection.close();
