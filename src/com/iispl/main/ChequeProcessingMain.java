@@ -30,7 +30,8 @@ public class ChequeProcessingMain {
             System.out.println("7. Sort by Priority");
             System.out.println("8. Sort by Status");
             System.out.println("9. Display High Value Cheques");
-            System.out.println("10. Exit");
+            System.out.println("10. Sort by Clearing Zone and Amount");
+            System.out.println("11. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = Integer.parseInt(scanner.nextLine());
@@ -82,8 +83,12 @@ public class ChequeProcessingMain {
                 List<Cheque> highValueCheques = chequeService.getHighValueCheques();
                 displayCheques(highValueCheques);
                 break;
-
+            
             case 10:
+            	cheques = chequeService.sortByClearingZoneAndAmount();
+            	displayCheques(cheques);
+
+            case 11:
                 System.out.println("Thank you for using Cheque Management System.");
                 scanner.close();
                 System.exit(0);
@@ -98,7 +103,7 @@ public class ChequeProcessingMain {
 
         System.out.printf("%-15s %-15s %-20s %-20s %-15s %-15s %-15s %-15s %-15s%n",
                 "Cheque No", "Account No", "Drawer Name", "Presenting Bank",
-                "Amount", "Cheque Date", "Presented Date", "Priority", "Status");
+                "Amount", "Cheque Date", "Presented Date", "Priority", "Status","Clearing Zone");
 
         System.out.println(
                 "-------------------------------------------------------------------------------------------------------------------------------");
@@ -114,7 +119,8 @@ public class ChequeProcessingMain {
                     cheque.getChequeDate(),
                     cheque.getPresentedDate(),
                     cheque.getPriority(),
-                    cheque.getStatus());
+                    cheque.getStatus(),
+                    cheque.getClearingZone());
         }
     }
 
