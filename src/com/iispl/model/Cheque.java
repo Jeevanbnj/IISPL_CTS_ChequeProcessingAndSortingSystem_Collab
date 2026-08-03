@@ -17,9 +17,11 @@ public class Cheque implements Comparable<Cheque>{
 	private LocalDate presentedDate;
 	private ChequePriority priority;
 	private ChequeStatus status;
+	private String clearingZone;
+
 	public Cheque(String chequeNumber, String accountNumber, String drawerName, String presentingBank,
 			BigDecimal chequeAmount, LocalDate chequeDate, LocalDate presentedDate, ChequePriority priority,
-			ChequeStatus status) {
+			ChequeStatus status, String clearingZone) {
 		super();
 		this.chequeNumber = chequeNumber;
 		this.accountNumber = accountNumber;
@@ -30,6 +32,13 @@ public class Cheque implements Comparable<Cheque>{
 		this.presentedDate = presentedDate;
 		this.priority = priority;
 		this.status = status;
+		this.clearingZone = clearingZone;
+	}
+	public String getClearingZone() {
+		return clearingZone;
+	}
+	public void setClearingZone(String clearingZone) {
+		this.clearingZone = clearingZone;
 	}
 	public String getChequeNumber() {
 		return chequeNumber;
@@ -84,6 +93,14 @@ public class Cheque implements Comparable<Cheque>{
 	}
 	public void setStatus(ChequeStatus status) {
 		this.status = status;
+	}
+	
+	@Override
+	public String toString() {
+		return "Cheque [chequeNumber=" + chequeNumber + ", accountNumber=" + accountNumber + ", drawerName="
+				+ drawerName + ", presentingBank=" + presentingBank + ", chequeAmount=" + chequeAmount + ", chequeDate="
+				+ chequeDate + ", presentedDate=" + presentedDate + ", priority=" + priority + ", status=" + status
+				+ ", clearingZone=" + clearingZone + "]";
 	}
 	@Override
 	public int compareTo(Cheque o) {
