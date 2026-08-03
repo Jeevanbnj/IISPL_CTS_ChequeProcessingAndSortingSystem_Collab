@@ -32,5 +32,7 @@ public interface ChequeService {
 	void updateChequeStatus(String chequeNumber, ChequeStatus status);
 	
 	void validateCheque(Cheque cheque);
+	
+	List<Cheque> sortByClearingZoneAndAmount();
 
 }
