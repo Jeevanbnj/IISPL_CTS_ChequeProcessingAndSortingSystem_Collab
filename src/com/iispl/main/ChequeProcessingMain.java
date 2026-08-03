@@ -87,7 +87,7 @@ public class ChequeProcessingMain {
             case 10:
             	cheques = chequeService.sortByClearingZoneAndAmount();
             	displayCheques(cheques);
-
+            	break;
             case 11:
                 System.out.println("Thank you for using Cheque Management System.");
                 scanner.close();
